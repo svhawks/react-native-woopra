@@ -24,7 +24,9 @@
     "woopra",
     "analytics",
     "analytic",
-    "react-native"
+    "react-native",
+    "react",
+    "native"
   ],
   "author": "Baris Sencan",
   "license": "MIT",
