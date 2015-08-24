@@ -1,0 +1,35 @@
+{
+  "name": "react-native-woopra",
+  "version": "1.0.0",
+  "description": "Promise based Woopra library for react-native",
+  "main": "Woopra.js",
+  "dependencies": {
+    "babel-eslint": "^4.0.10",
+    "eslint": "^1.2.1",
+    "eslint-config-airbnb": "^0.0.8"
+  },
+  "devDependencies": {
+    "babel-eslint": "^4.0.10",
+    "eslint": "^1.2.1",
+    "eslint-config-airbnb": "0.0.8"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isair/react-native-woopra.git"
+  },
+  "keywords": [
+    "woopra",
+    "analytics",
+    "analytic",
+    "react-native"
+  ],
+  "author": "Baris Sencan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/isair/react-native-woopra/issues"
+  },
+  "homepage": "https://github.com/isair/react-native-woopra#readme"
+}
