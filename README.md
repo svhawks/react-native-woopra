@@ -1,7 +1,7 @@
 ## Installation
 
 ```
-npm install react-native-woopra -g
+npm install -g react-native-woopra
 ```
 
 ## Usage
@@ -19,5 +19,7 @@ Woopra.client({
   method: 'email',
 }).then(() => {
   console.log('Event logged');
+}).catch(() => {
+  console.log('Event failed to log');
 });
 ```
