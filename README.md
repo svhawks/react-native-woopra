@@ -1,7 +1,8 @@
 ## Installation
 
 ```
-npm install -g react-native-woopra
+cd myapp
+npm install react-native-woopra --save
 ```
 
 ## Usage
