@@ -1,7 +1,13 @@
 /* @flow */
 
 function buildQueryString(params: Object): string {
-
+  const encodedParams: Array<string> = [];
+  for (key in params) {
+    if (params.hasOwnProperty(key)) {
+      encodedParams.push(`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
+    }
+  }
+  return encodedParams.join('&');
 }
 
 let sharedWoopra: Class<Woopra> = null;
