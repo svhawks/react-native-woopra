@@ -1,17 +1,17 @@
 /* @flow */
 
-function buildQueryString(params/* : Object*/)/* : string*/ {
+function buildQueryString(params: Object): string {
 
 }
 
-let sharedWoopra/* : Class<Woopra>*/ = null;
+let sharedWoopra: Class<Woopra> = null;
 
 /**
  * Used for tracking Woopra events for a specific domain.
  */
 class Woopra {
 
-  static shared()/* : Class<Woopra>*/ {
+  static shared(): Class<Woopra> {
     if (!sharedWoopra) sharedWoopra = new Woopra();
     return sharedWoopra;
   }
@@ -26,9 +26,9 @@ class Woopra {
   * Merges given options with the current configuration options.
   * The default configuration is { ssl: true }
   * @param {Object} options Options to be merged.
-  * @returns {Woopra} The affected Woopra instance.
+  * @returns {Class<Woopra>} The affected Woopra instance.
   */
-  config(options/* : Object*/)/* : Class<Woopra>*/ {
+  config(options: Object): Class<Woopra> {
     Object.assign(this.options, options);
     return this;
   }
@@ -37,20 +37,26 @@ class Woopra {
    * Merges given visitor properties with the current visitor properties.
    * By default visitor has no properties set.
    * @param {Object} visitor Properties to be merged.
-   * @returns {Woopra} The affected Woopra instance.
+   * @returns {Class<Woopra>} The affected Woopra instance.
    */
-  identify(visitor/* : Object*/)/* : Class<Woopra>*/ {
+  identify(visitor: Object): Class<Woopra> {
     Object.assign(this._visitor, visitor);
     return this;
   }
 
-  push()/* : Promise*/ {
+  /**
+   * Sends a visitor identification request. Used for sending visitor data
+   * without having to track an event.
+   * @returns {Promise} Request promise.
+   */
+  push(): Promise {
+    return this._request('identify');
   }
 
-  track(event/* : string*/, dimensions?/* : ?Object*/)/* : Promise*/ {
+  track(event: string, dimensions?: ?Object): Promise {
   }
 
-  _request(endPoint/* : string*/, parameters?/* : ?Object*/)/* : Promise*/ {
+  _request(endPoint: string, parameters?: ?Object): Promise {
     const protocol = this.options.ssl ? 'https' : 'http';
     const queryString = parameters ? `?${buildQueryString(parameters)}` : '';
     return fetch(`${protocol}://www.woopra.com/track/${endPoint}${queryString}`);
