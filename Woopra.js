@@ -33,12 +33,6 @@ class Woopra {
     return this;
   }
 
-  request(endPoint/* : string*/, parameters?/* : ?Object*/)/* : Promise*/ {
-    const protocol = this.options.ssl ? 'https' : 'http';
-    const queryString = parameters ? `?${buildQueryString(parameters)}` : '';
-    return fetch(`${protocol}://www.woopra.com/track/${endPoint}${queryString}`);
-  }
-
   /**
    * Merges given visitor properties with the current visitor properties.
    * By default visitor has no properties set.
@@ -54,6 +48,12 @@ class Woopra {
   }
 
   track(event/* : string*/, dimensions?/* : ?Object*/)/* : Promise*/ {
+  }
+
+  _request(endPoint/* : string*/, parameters?/* : ?Object*/)/* : Promise*/ {
+    const protocol = this.options.ssl ? 'https' : 'http';
+    const queryString = parameters ? `?${buildQueryString(parameters)}` : '';
+    return fetch(`${protocol}://www.woopra.com/track/${endPoint}${queryString}`);
   }
 }
 
