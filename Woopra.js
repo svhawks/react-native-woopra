@@ -26,6 +26,7 @@ class Woopra {
     this.domain = null;
     this.options = { ssl: true };
     this._visitor = {};
+    this._client = {};
   }
 
   /**
@@ -41,12 +42,24 @@ class Woopra {
 
   /**
    * Merges given visitor properties with the current visitor properties.
-   * By default visitor has no properties set.
+   * By default visitor has no properties set. You need to set a value
+   * for `email`, `id`, or `cookie` to uniquely identify a visitor.
    * @param {Object} visitor Properties to be merged.
    * @returns {Woopra} The affected Woopra instance.
    */
   identify(visitor: Object): Class<Woopra> {
     Object.assign(this._visitor, visitor);
+    return this;
+  }
+
+  /**
+   * Merges given client properties with the current client properties.
+   * By default client has no properties set.
+   * @param {Object} properties Properties to be merged.
+   * @returns {Woopra} The affected Woopra instance.
+   */
+  client(properties: Object): Class<Woopra> {
+    Object.assign(this._client, properties);
     return this;
   }
 
@@ -74,10 +87,29 @@ class Woopra {
   }
 
   _request(endPoint: string, parameters?: ?Object): Promise {
-    // TODO: Complete implementation.
+    if (!this.domain) {
+      throw new Error('Woopra object must have its domain property set.');
+    }
+    if (!this._visitor.id && !this._visitor.email && !this._visitor.cookie) {
+      throw new Error('Visitor must have `email`, `id`, or `cookie` property set.');
+    }
     const protocol = this.options.ssl ? 'https' : 'http';
-    const queryString = parameters ? `?${buildQueryString(parameters)}` : '';
-    return fetch(`${protocol}://www.woopra.com/track/${endPoint}${queryString}`);
+    const finalParameters = {};
+    Object.assign(finalParameters, this._client);
+    Object.assign(finalParameters, Object.keys(this._visitor).reduce((previous, key) => {
+      previous[`cv_${key}`] = this._visitor[key];
+      return previous;
+    }, {}));
+    Object.assign(finalParameters, parameters || {});
+    if (finalParameters.eventData) {
+      const eventData = finalParameters.eventData;
+      delete finalParameters.eventData;
+      Object.assign(finalParameters, Object.keys(eventData).reduce((previous, key) => {
+        previous[`ce_${key}`] = eventData[key];
+        return previous;
+      }, {}));
+    }
+    return fetch(`${protocol}://www.woopra.com/track/${endPoint}?${buildQueryString(finalParameters)}`);
   }
 }
 
