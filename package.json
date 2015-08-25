@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "description": "Promise based Woopra library for react-native",
   "main": "Woopra.js",
-  "dependencies": {
-    "babel-eslint": "^4.0.10",
-    "eslint": "^1.2.1",
-    "eslint-config-airbnb": "^0.0.8"
-  },
   "devDependencies": {
     "babel-eslint": "^4.0.10",
     "eslint": "^1.2.1",
