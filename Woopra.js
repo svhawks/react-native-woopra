@@ -94,7 +94,7 @@ class Woopra {
       throw new Error('Visitor must have `email`, `id`, or `cookie` property set.');
     }
     const protocol = this.options.ssl ? 'https' : 'http';
-    const finalParameters = {};
+    const finalParameters = { website: this.domain };
     Object.assign(finalParameters, this._client);
     Object.assign(finalParameters, Object.keys(this._visitor).reduce((previous, key) => {
       previous[`cv_${key}`] = this._visitor[key];
