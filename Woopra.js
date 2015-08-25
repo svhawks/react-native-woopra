@@ -32,7 +32,7 @@ class Woopra {
   * Merges given options with the current configuration options.
   * The default configuration is { ssl: true }
   * @param {Object} options Options to be merged.
-  * @returns {Class<Woopra>} The affected Woopra instance.
+  * @returns {Woopra} The affected Woopra instance.
   */
   config(options: Object): Class<Woopra> {
     Object.assign(this.options, options);
@@ -43,7 +43,7 @@ class Woopra {
    * Merges given visitor properties with the current visitor properties.
    * By default visitor has no properties set.
    * @param {Object} visitor Properties to be merged.
-   * @returns {Class<Woopra>} The affected Woopra instance.
+   * @returns {Woopra} The affected Woopra instance.
    */
   identify(visitor: Object): Class<Woopra> {
     Object.assign(this._visitor, visitor);
@@ -59,10 +59,22 @@ class Woopra {
     return this._request('identify');
   }
 
-  track(event: string, dimensions?: ?Object): Promise {
+  /**
+   * Sends an event tracking request.
+   * @param {string} event Event name.
+   * @param {Object} dimensions Event data.
+   * @param {Object} extraParameters Extra parameters (e.g. timestamp)
+   * @returns {Promise} Request promise.
+   */
+  track(event: string, dimensions?: ?Object, extraParameters?: ?Object): Promise {
+    const eventData = dimensions || {};
+    const parameters = { event, eventData };
+    if (extraParameters) Object.assign(parameters, extraParameters);
+    return this._request('ce', parameters);
   }
 
   _request(endPoint: string, parameters?: ?Object): Promise {
+    // TODO: Complete implementation.
     const protocol = this.options.ssl ? 'https' : 'http';
     const queryString = parameters ? `?${buildQueryString(parameters)}` : '';
     return fetch(`${protocol}://www.woopra.com/track/${endPoint}${queryString}`);
