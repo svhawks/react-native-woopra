@@ -1,12 +1,15 @@
 {
   "name": "react-native-woopra",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Promise based Woopra library for react-native",
   "main": "Woopra.js",
   "devDependencies": {
     "babel-eslint": "^4.0.10",
     "eslint": "^1.2.1",
     "eslint-config-airbnb": "0.0.8"
+  },
+  "peerDependencies": {
+    "react-native": ">=0.10"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,8 +23,9 @@
     "analytics",
     "analytic",
     "react-native",
-    "react",
-    "native"
+    "react-component",
+    "ios",
+    "android"
   ],
   "author": "Baris Sencan",
   "license": "MIT",
