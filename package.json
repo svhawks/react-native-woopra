@@ -6,7 +6,8 @@
   "devDependencies": {
     "babel-eslint": "^4.0.10",
     "eslint": "^1.2.1",
-    "eslint-config-airbnb": "0.0.8"
+    "eslint-config-airbnb": "0.0.8",
+    "prettier": "^1.15.3"
   },
   "peerDependencies": {
     "react-native": ">=0.10"
