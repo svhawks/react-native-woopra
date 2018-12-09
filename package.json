@@ -1,6 +1,6 @@
 {
   "name": "react-native-woopra",
-  "version": "1.0.2",
+  "version": "1.1.0-rc.1",
   "description": "Promise based Woopra library for react-native",
   "main": "Woopra.js",
   "devDependencies": {
